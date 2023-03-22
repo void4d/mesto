@@ -1,0 +1,9 @@
+.header {
+  width: 880px;
+  height: 74px;
+  padding-top: 45px;
+  margin: 0 auto;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-bottom-color: #545454;
+}
