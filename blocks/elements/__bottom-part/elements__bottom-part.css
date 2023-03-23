@@ -1,0 +1,8 @@
+.elements__bottom-part {
+  width: 282px;
+  height: 80px;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
