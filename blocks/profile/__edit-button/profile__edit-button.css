@@ -1,0 +1,8 @@
+.profile__edit-button {
+  grid-area: editButton;
+  width: 24px;
+  height: 24px;
+  border: 1px solid white;
+  box-sizing: border-box;
+  background: no-repeat center url(../../../images/icon-pen.svg);
+}

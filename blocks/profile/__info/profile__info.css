@@ -1,0 +1,14 @@
+.profile__info {
+  width: 336px;
+  margin-left: 30px;
+  display: grid;
+  grid-template-rows: min-content min-content;
+  grid-template-columns: max-content min-content;
+  grid-template-areas:
+      "name editButton"
+      "description .";
+  column-gap: 18px;
+  row-gap: 16px;
+  align-self: center;
+  align-items: baseline;
+}
