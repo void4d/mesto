@@ -6,6 +6,6 @@
   flex-shrink: 0;
 }
 
-.elements__like-button:hover {
+/* .elements__like-button:active {
   background: url(../../../images/icon-likeOn.svg);
-}
+} */
