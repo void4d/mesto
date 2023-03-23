@@ -5,3 +5,7 @@
   background: url(../../../images/icon-like.svg);
   flex-shrink: 0;
 }
+
+.elements__like-button:hover {
+  background: url(../../../images/icon-likeOn.svg);
+}
