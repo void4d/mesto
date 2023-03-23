@@ -16,3 +16,5 @@
 @import url(../blocks/elements/__bottom-part/elements__bottom-part.css);
 @import url(../blocks/elements/__heading/elements__heading.css);
 @import url(../blocks/elements/__like-button/elements__like-button.css);
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
