@@ -3,7 +3,5 @@
   height: 74px;
   padding-top: 45px;
   margin: 0 auto;
-  border-bottom-style: solid;
-  border-bottom-width: thin;
-  border-bottom-color: #545454;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);;
 }
