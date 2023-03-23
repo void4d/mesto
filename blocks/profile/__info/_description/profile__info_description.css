@@ -1,7 +1,10 @@
 .profile__info_description {
+  max-width: 336px;
   margin: 0;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
   grid-area: description;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

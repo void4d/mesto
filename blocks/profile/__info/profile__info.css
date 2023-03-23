@@ -6,7 +6,7 @@
   grid-template-columns: max-content min-content;
   grid-template-areas:
       "name editButton"
-      "description .";
+      "description description";
   column-gap: 18px;
   row-gap: 16px;
   align-self: center;
