@@ -5,5 +5,5 @@
   border: 1px solid white;
   box-sizing: border-box;
   background: no-repeat center url(../../../images/icon-pen.svg);
-  display: inline-table;
+  display: inline-flex;
 }
