@@ -1,9 +1,19 @@
 .elements {
-  width: 880px;
+  max-width: 880px;
   padding-top: 50px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 17px;
   row-gap: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  .elements {
+    padding-top: 36px;
+    padding-left: 18px;
+    padding-right: 18px;
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
 }

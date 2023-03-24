@@ -1,9 +1,9 @@
 .profile__info {
-  width: 336px;
+  max-width: 336px;
   margin-left: 30px;
   display: grid;
-  grid-template-rows: min-content min-content;
-  grid-template-columns: max-content min-content;
+  grid-template-rows: max-content max-content;
+  grid-template-columns: max-content max-content;
   grid-template-areas:
       "name editButton"
       "description description";
@@ -11,4 +11,15 @@
   row-gap: 16px;
   align-self: center;
   align-items: baseline;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    margin-left: 0;
+    margin-top: 26px;
+    width: 282px;
+    column-gap: 10px;
+    row-gap: 5px;
+    grid-template-columns: max-content 1fr;
+  }
 }
