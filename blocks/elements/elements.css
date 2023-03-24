@@ -17,5 +17,6 @@
     padding-right: 18px;
     grid-template-columns: 1fr;
     column-gap: 0;
+    justify-items: center;
   }
 }
