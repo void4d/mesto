@@ -4,7 +4,7 @@
   height: 24px;
   border: 1px solid white;
   box-sizing: border-box;
-  background: no-repeat center url(../../../images/icon-pen.svg);
+  background: no-repeat center url(../../../images/Icon-pen.svg);
   display: inline-flex;
   cursor: pointer;
 }
