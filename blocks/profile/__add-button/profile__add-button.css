@@ -7,4 +7,9 @@
   border-radius: 2px;
   box-sizing: border-box;
   background: no-repeat center url(../../../images/icon-add.svg);
+  cursor: pointer;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }

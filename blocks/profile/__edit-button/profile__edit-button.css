@@ -6,4 +6,9 @@
   box-sizing: border-box;
   background: no-repeat center url(../../../images/icon-pen.svg);
   display: inline-flex;
+  cursor: pointer;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
 }

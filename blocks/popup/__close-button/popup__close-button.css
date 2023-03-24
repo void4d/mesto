@@ -8,3 +8,7 @@
   cursor: pointer;
   z-index: 99;
 }
+
+.popup__close-button:hover {
+  opacity: 0.6;
+}
