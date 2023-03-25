@@ -7,6 +7,13 @@
   background: no-repeat center url(../../../images/Icon-pen.svg);
   display: inline-flex;
   cursor: pointer;
+  padding: 0;
+}
+
+@-moz-document url-prefix() {
+  .profile__edit-button {
+    align-self: center;
+  }
 }
 
 .profile__edit-button:hover {

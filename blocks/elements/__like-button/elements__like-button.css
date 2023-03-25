@@ -5,6 +5,8 @@
   background: url(../../../images/icon-like.svg);
   flex-shrink: 0;
   cursor: pointer;
+  border: none;
+  padding: 0;
 }
 
 .elements__like-button:hover {

@@ -8,6 +8,7 @@
   box-sizing: border-box;
   background: no-repeat center url(../../../images/icon-add.svg);
   cursor: pointer;
+  padding: 0;
 }
 
 .profile__add-button:hover {
