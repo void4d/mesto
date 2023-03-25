@@ -12,8 +12,8 @@ let jobInput = popupForm.querySelector('.popup__input_type_description');
 
 editButton.addEventListener('click', function () {
   popup.classList.add('popup_opened');
-  nameInput.value = nameProfile.innerHTML;
-  jobInput.value = jobProfile.innerHTML;
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
 });
 
 editButton.addEventListener('click', function () {
@@ -26,7 +26,7 @@ closeButton.addEventListener('click', function () {
 
 popupForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  nameProfile.innerHTML = nameInput.value;
+  nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   popup.classList.add('popup_closed');
 })
