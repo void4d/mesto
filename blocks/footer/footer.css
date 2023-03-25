@@ -5,8 +5,16 @@
   padding-bottom: 60px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 895px) {
   .footer {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .footer {
+    text-align: unset;
     padding-top: 48px;
     padding-left: 19px;
     padding-bottom: 36px;

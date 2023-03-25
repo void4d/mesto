@@ -6,9 +6,8 @@
   object-position: center;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 895px) {
   .profile__avatar {
     justify-self: center;
   }
-
 }
