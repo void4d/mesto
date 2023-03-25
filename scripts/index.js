@@ -11,22 +11,22 @@ let jobInput = popupForm.querySelector('.popup__input_type_description');
 
 
 editButton.addEventListener('click', function () {
-  popup.classList.add('popup_opened');
+  popup.classList.remove('popup_opened');
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
 });
 
 editButton.addEventListener('click', function () {
-  popup.classList.remove('popup_closed');
+  popup.classList.add('popup_opened');
 });
 
 closeButton.addEventListener('click', function () {
-  popup.classList.add('popup_closed');
+  popup.classList.remove('popup_opened');
 })
 
 popupForm.addEventListener('submit', function (event) {
   event.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  popup.classList.add('popup_closed');
+  popup.classList.remove('popup_opened');
 })
