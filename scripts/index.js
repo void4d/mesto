@@ -1,32 +1,34 @@
-const popup = document.querySelector('.popup');
+// Поля имени и описания в профиле
+const nameProfile = document.querySelector('.profile__name');
+const jobProfile = document.querySelector('.profile__description');
+
+// Окно редактирования профиля
+const popupProfileEdit = document.querySelector('.popup__type_profile-edit');
+const popupFormEdit = popupProfileEdit.querySelector('.popup__form');
+const nameInputEdit = popupProfileEdit.querySelector('.popup__input_type_name');
+const jobInputEdit = popupProfileEdit.querySelector('.popup__input_type_description');
+
+// Кнопки
 const editButton = document.querySelector('.profile__edit-button');
-const closeButton = popup.querySelector('.popup__close-button');
+const closeButton = document.querySelector('.popup__close-button');
 const saveButton = document.querySelector('.popup__save-button');
 
-let nameProfile = document.querySelector('.profile__name');
-let jobProfile = document.querySelector('.profile__description');
-let popupForm = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = popupForm.querySelector('.popup__input_type_description');
-
-
+// Открытие окна редактирования профиля
 editButton.addEventListener('click', function () {
-  popup.classList.remove('popup_opened');
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
+  popupProfileEdit.classList.add('popup_opened');
+  nameInputEdit.value = nameProfile.textContent;
+  jobInputEdit.value = jobProfile.textContent;
 });
 
-editButton.addEventListener('click', function () {
-  popup.classList.add('popup_opened');
-});
-
+// Кнопка закрытия модального окна
 closeButton.addEventListener('click', function () {
-  popup.classList.remove('popup_opened');
+  popupProfileEdit.classList.remove('popup_opened');
 })
 
-popupForm.addEventListener('submit', function (event) {
+// Сабмит окна редактирования профиля
+popupFormEdit.addEventListener('submit', function (event) {
   event.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  popup.classList.remove('popup_opened');
+  nameProfile.textContent = nameInputEdit.value;
+  jobProfile.textContent = jobInputEdit.value;
+  popupProfileEdit.classList.remove('popup_opened');
 })
