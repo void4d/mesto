@@ -30,3 +30,4 @@
 @import url(../blocks/popup/__photo/popup__photo.css);
 @import url(../blocks/popup/__photo-container/popup__photo-container.css);
 @import url(../blocks/popup/__caption/popup__caption.css);
+@import url(../blocks/elements/__like-button/_active/elements__like-button_active.css);

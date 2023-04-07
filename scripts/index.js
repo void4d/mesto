@@ -12,6 +12,7 @@ const jobInputEdit = popupProfileEdit.querySelector('.popup__input_type_descript
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = document.querySelector('.popup__close-button');
 const saveButton = document.querySelector('.popup__save-button');
+const likeButton = document.querySelector('.elements__like-button');
 
 // Открытие окна редактирования профиля
 editButton.addEventListener('click', function () {
@@ -32,3 +33,7 @@ popupFormEdit.addEventListener('submit', function (event) {
   jobProfile.textContent = jobInputEdit.value;
   popupProfileEdit.classList.remove('popup_opened');
 })
+
+likeButton.addEventListener('click', function () {
+  likeButton.classList.toggle('elements__like-button_active');
+});
