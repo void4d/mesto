@@ -84,13 +84,18 @@ function createCardElement(cardInfo) {
   return cardElement;
 };
 
-// Функция добавления карточки
-function addCardElement(cardElement) {
+// Функция добавления карточки в начало
+function addCardElementStart(cardElement) {
+  cardsGrid.append(cardElement);
+};
+
+// Функция добавления карточки в конец
+function addCardElementEnd(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
 initialCards.forEach((card) => {
-  addCardElement(createCardElement(card));
+  addCardElementStart(createCardElement(card));
 });
 
 // Открытие попапа
@@ -140,7 +145,7 @@ function cardSubmit(event) {
     link
   };
 
-  addCardElement(createCardElement(cardInfo));
+  addCardElementEnd(createCardElement(cardInfo));
   closePopup(popupAddCard);
 };
 
