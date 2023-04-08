@@ -55,6 +55,7 @@ function createCardElement(cardInfo) {
   function openCard(cardInfo) {
     cardPhoto.src = cardInfo.link;
     cardCaption.textContent = cardInfo.name;
+    cardCaption.alt = cardInfo.name;
     openPopup(popupOpenCard);
   };
 
