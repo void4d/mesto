@@ -15,9 +15,6 @@ const popupAddForm = popupAddCard.querySelector('.popup__form');
 // Окно просмотра полного изображения
 const popupOpenCard = document.querySelector('.popup__type_open-card');
 
-// Фото карточки
-const cardPhoto = document.querySelector('.elements__photo');
-
 // Кнопки
 const editButton = document.querySelector('.profile__edit-button');
 const closeButtonEdit = popupProfileEdit.querySelector('.popup__close-button');
@@ -36,7 +33,7 @@ popupFormEdit.addEventListener('submit', function (event) {
   closePopup(popupProfileEdit);
 });
 
-// Функция добавления карточки
+// Функция создания карточки
 const cardTemplate = document.querySelector('.card-template');
 const cardsGrid = document.querySelector('.elements');
 
@@ -52,11 +49,11 @@ function createCardElement(cardInfo) {
 
   const deleteButton = cardElement.querySelector('.elements__delete-button');
   const likeButton = cardElement.querySelector('.elements__like-button');
-
+  // Функция удаления карточки
   function deleteCard() {
     cardElement.remove();
   };
-
+  // Функция лайка карточки
   function likeCard() {
     likeButton.classList.toggle('elements__like-button_active');
   };
@@ -67,19 +64,36 @@ function createCardElement(cardInfo) {
   return cardElement;
 };
 
+// Функция добавления карточки
 function addCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
 initialCards.forEach((card) => {
   addCardElement(createCardElement(card));
+
+  // Фото карточки
+  const cardPhoto = document.querySelector('.elements__photo');
+  // Открытие окна просмотра полного изображения
+  cardPhoto.addEventListener('click', function () {
+    let photo = document.querySelector('.popup__photo');
+    let caption = document.querySelector('.popup__caption');
+    photo.src = card.link;
+    caption.textContent = card.name;
+    openPopup(popupOpenCard);
+  });
+  // Закрытие окна просмотра полного изображения
+  closeButtonOpenCard.addEventListener('click', function () {
+    closePopup(popupOpenCard);
+  });
 });
 
-
+// Открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 };
 
+// Закрытие попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
@@ -106,16 +120,7 @@ closeButtonAddCard.addEventListener('click', function () {
   closePopup(popupAddCard);
 });
 
-// Открытие окна просмотра полного изображения
-// cardPhoto.addEventListener('click', function () {
-//   openPopup(popupOpenCard);
-//   });
-
-// Закрытие окна просмотра полного изображения
-// closeButtonOpenCard.addEventListener('click', function () {
-//   popupOpenCard.classList.remove('popup_opened');
-// });
-
+// Сабмит добавления карточки
 function cardSubmit(event) {
   event.preventDefault();
 
