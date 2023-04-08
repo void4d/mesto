@@ -146,6 +146,9 @@ function cardSubmit(event) {
   };
 
   addCardElementEnd(createCardElement(cardInfo));
+
+  nameInput.value = '';
+  linkInput.value = '';
   closePopup(popupAddCard);
 };
 
