@@ -3,17 +3,17 @@ const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__description');
 
 // Окно редактирования профиля
-const popupProfileEdit = document.querySelector('.popup__type_profile-edit');
+const popupProfileEdit = document.querySelector('.popup_type_profile-edit');
 const popupFormEdit = popupProfileEdit.querySelector('.popup__form');
 const nameInputEdit = popupFormEdit.querySelector('.popup__input_type_name');
 const jobInputEdit = popupFormEdit.querySelector('.popup__input_type_description');
 
 // Окно добавления карточки
-const popupAddCard = document.querySelector('.popup__type_add-card');
+const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupAddForm = popupAddCard.querySelector('.popup__form');
 
 // Окно просмотра полного изображения
-const popupOpenCard = document.querySelector('.popup__type_open-card');
+const popupOpenCard = document.querySelector('.popup_type_open-card');
 
 // Кнопки
 const editButton = document.querySelector('.profile__edit-button');
