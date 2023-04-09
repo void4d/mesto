@@ -27,10 +27,6 @@ const cardCaption = document.querySelector('.popup__caption');
 // Карточка
 const cardTemplate = document.querySelector('.card-template');
 const cardsGrid = document.querySelector('.elements');
-const likeButton = cardTemplate.querySelector('.elements__like-button');
-const cardPhotoCropped = cardTemplate.querySelector('.elements__photo');
-
-
 
 // Сабмит окна редактирования профиля
 popupFormEdit.addEventListener('submit', function (event) {
