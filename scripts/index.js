@@ -21,8 +21,8 @@ const createButton = popupAddCard.querySelector('.popup__save-button');
 // Окно просмотра полного изображения
 const popupOpenCard = document.querySelector('.popup_type_open-card');
 const closeButtonOpenCard = popupOpenCard.querySelector('.popup__close-button');
-const cardPhoto = document.querySelector('.popup__photo');
-const cardCaption = document.querySelector('.popup__caption');
+const cardPhoto = popupOpenCard.querySelector('.popup__photo');
+const cardCaption = popupOpenCard.querySelector('.popup__caption');
 
 // Карточка
 const cardTemplate = document.querySelector('.card-template');
