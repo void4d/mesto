@@ -4,6 +4,10 @@ const jobProfile = document.querySelector('.profile__description');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
+// Окна
+const overlay = document.querySelector('.popup');
+const popupContainer = document.querySelector('.popup__container');
+
 // Окно редактирования профиля
 const popupProfileEdit = document.querySelector('.popup_type_profile-edit');
 const popupFormEdit = popupProfileEdit.querySelector('.popup__form');
@@ -125,6 +129,17 @@ function closePopupByEsc (evt) {
 };
 
 document.addEventListener('keydown', closePopupByEsc);
+
+// Закрытие попапов на клик по оверлею
+function closePopupByClickOnOverlay (evt) {
+  if (evt.target == overlay) {
+    closePopup(popupProfileEdit);
+    closePopup(popupOpenCard);
+    closePopup(popupAddCard);
+  }
+};
+
+overlay.addEventListener('click', closePopupByClickOnOverlay);
 
 // Открытие окна добавления карточки
 addButton.addEventListener('click', function () {
