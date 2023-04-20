@@ -115,6 +115,17 @@ closeButtonEdit.addEventListener('click', function () {
   closePopup(popupProfileEdit);
 });
 
+// Закрытие попапов на Esc
+function closePopupByEsc (evt) {
+  if (evt.key === 'Escape') {
+   closePopup(popupProfileEdit);
+   closePopup(popupOpenCard);
+   closePopup(popupAddCard);
+  };
+};
+
+document.addEventListener('keydown', closePopupByEsc);
+
 // Открытие окна добавления карточки
 addButton.addEventListener('click', function () {
   openPopup(popupAddCard);
@@ -148,3 +159,7 @@ function cardSubmit(event) {
 };
 
 popupAddForm.addEventListener('submit', cardSubmit);
+
+
+
+
