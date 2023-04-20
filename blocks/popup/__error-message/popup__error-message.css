@@ -1,0 +1,15 @@
+.popup__error-message {
+  color: #FF0000;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  display: block;
+  margin-left: 2px;
+  position: absolute;
+  top: 30px;
+  z-index: 1;
+}
+
+.popup__error-message:last-of-type {
+  margin-bottom: 0;
+}
