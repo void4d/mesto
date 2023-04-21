@@ -169,42 +169,39 @@ function cardSubmit(event) {
 
   nameInput.value = '';
   linkInput.value = '';
-
   closePopup(popupAddCard);
 };
 
 popupAddForm.addEventListener('submit', cardSubmit);
 
-
 // Валидация формы
-
 function enableValidation() {
-  const inputs = document.querySelectorAll('.popup__input')
-  const inputsArray = Array.from(inputs);
+  const forms = document.querySelectorAll('.popup__form');
+  const formsArray = Array.from(forms);
 
-  inputsArray.forEach(function (input) {
-    input.addEventListener('input', function () {
-      const errorMessage = document.querySelector(`#${input.id}-error`);
-      const submitButton = document.querySelectorAll('.popup__save-button');
-      const submitButtonArray = Array.from(submitButton);
+  formsArray.forEach(function (form) {
+    const inputs = form.querySelectorAll('.popup__input');
+    const inputsArray = Array.from(inputs);
+    const submitButton = form.querySelector('.popup__save-button');
 
-      if (input.validity.valid) {
-        submitButtonArray.forEach(function (button) {
-          button.classList.remove('popup__save-button_disabled');
-          button.removeAttribute('disabled', true);
+    inputsArray.forEach(function (input) {
+      input.addEventListener('input', function () {
+        const errorMessage = form.querySelector(`#${input.id}-error`);
+
+        if (input.validity.valid) {
+          submitButton.classList.remove('popup__save-button_disabled');
+          submitButton.removeAttribute('disabled', '');
           input.classList.remove('popup__input_invalid');
           errorMessage.textContent = '';
-        })
-      } else {
-        submitButtonArray.forEach(function (button) {
-          button.classList.add('popup__save-button_disabled');
-          button.setAttribute('disabled', true);
+        } else {
+          submitButton.classList.add('popup__save-button_disabled');
+          submitButton.setAttribute('disabled', '');
           input.classList.add('popup__input_invalid');
           errorMessage.textContent = input.validationMessage;
-        })
-      };
-    })
-  })
+        };
+      });
+    });
+  });
 };
 
 enableValidation();
