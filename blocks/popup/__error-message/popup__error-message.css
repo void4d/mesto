@@ -9,7 +9,3 @@
   top: 23px;
   z-index: 1;
 }
-
-.popup__error-message:last-of-type {
-  margin-bottom: 0;
-}

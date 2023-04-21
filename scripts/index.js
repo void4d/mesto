@@ -178,55 +178,33 @@ popupAddForm.addEventListener('submit', cardSubmit);
 
 // Валидация формы
 
-function setInputValidState(input, errorMessage) {
-  saveButton.classList.remove('popup__save-button_disabled');
-  saveButton.removeAttribute('disabled', true);
-  input.classList.remove('popup__input_invalid');
-  errorMessage.textContent = '';
+function enableValidation() {
+  const inputs = document.querySelectorAll('.popup__input')
+  const inputsArray = Array.from(inputs);
+
+  inputsArray.forEach(function (input) {
+    input.addEventListener('input', function () {
+      const errorMessage = document.querySelector(`#${input.id}-error`);
+      const submitButton = document.querySelectorAll('.popup__save-button');
+      const submitButtonArray = Array.from(submitButton);
+
+      if (input.validity.valid) {
+        submitButtonArray.forEach(function (button) {
+          button.classList.remove('popup__save-button_disabled');
+          button.removeAttribute('disabled', true);
+          input.classList.remove('popup__input_invalid');
+          errorMessage.textContent = '';
+        })
+      } else {
+        submitButtonArray.forEach(function (button) {
+          button.classList.add('popup__save-button_disabled');
+          button.setAttribute('disabled', true);
+          input.classList.add('popup__input_invalid');
+          errorMessage.textContent = input.validationMessage;
+        })
+      };
+    })
+  })
 };
 
-function setInputInvalidState(input, errorMessage) {
-  saveButton.classList.add('popup__save-button_disabled');
-  saveButton.setAttribute('disabled', true);
-  input.classList.add('popup__input_invalid');
-  console.log(errorMessage);
-  errorMessage.textContent = input.validationMessage;
-};
-
-function checkInputValidity(input) {
-  const errorMessage = popupContainer.querySelector(`#${input.id}-error`);
-
-  if (input.validity.valid) {
-    setInputValidState(input, errorMessage);
-  } else {
-    setInputInvalidState(input, errorMessage);
-  }
-};
-
-function enableEditFormValidation() {
-  const EditForm = document.querySelector('#editform');
-  const EditFormInputs = EditForm.querySelectorAll('.popup__input')
-  const EditFormInputsArray = Array.from(EditFormInputs);
-
-  EditFormInputsArray.forEach(function (input) {
-    input.addEventListener('input', function() {
-      checkInputValidity(input);
-    });
-  });
-};
-
-enableEditFormValidation();
-
-function enableAddFormValidation() {
-  const AddForm = document.querySelector('#addform');
-  const AddFormInputs = AddForm.querySelectorAll('.popup__input');
-  const AddFormInputsArray = Array.from(AddFormInputs);
-
-  AddFormInputsArray.forEach(function (input) {
-    input.addEventListener('input', function() {
-      checkInputValidity(input);
-    });
-  });
-};
-
-enableAddFormValidation();
+enableValidation();
