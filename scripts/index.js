@@ -173,35 +173,3 @@ function cardSubmit(event) {
 };
 
 popupAddForm.addEventListener('submit', cardSubmit);
-
-// Валидация формы
-function enableValidation() {
-  const forms = document.querySelectorAll('.popup__form');
-  const formsArray = Array.from(forms);
-
-  formsArray.forEach(function (form) {
-    const inputs = form.querySelectorAll('.popup__input');
-    const inputsArray = Array.from(inputs);
-    const submitButton = form.querySelector('.popup__save-button');
-
-    inputsArray.forEach(function (input) {
-      input.addEventListener('input', function () {
-        const errorMessage = form.querySelector(`#${input.id}-error`);
-
-        if (input.validity.valid) {
-          submitButton.classList.remove('popup__save-button_disabled');
-          submitButton.removeAttribute('disabled', '');
-          input.classList.remove('popup__input_invalid');
-          errorMessage.textContent = '';
-        } else {
-          submitButton.classList.add('popup__save-button_disabled');
-          submitButton.setAttribute('disabled', '');
-          input.classList.add('popup__input_invalid');
-          errorMessage.textContent = input.validationMessage;
-        };
-      });
-    });
-  });
-};
-
-enableValidation();
