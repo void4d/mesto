@@ -9,3 +9,13 @@
   top: 23px;
   z-index: 1;
 }
+
+
+
+
+
+@media screen and (max-width: 599px) {
+  .popup__error-message {
+    max-width: 238px;
+  }
+}
