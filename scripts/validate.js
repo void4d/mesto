@@ -29,8 +29,6 @@ function enableButton(config, submitButton) {
 
 // Функция отключения кнопки
 function disableButton(config, submitButton) {
-  console.log(config);
-  console.log(submitButton);
   submitButton.classList.add(config.inactiveButtonClass);
   submitButton.setAttribute('disabled', '');
 };
@@ -53,6 +51,8 @@ function enableValidation(config) {
     const inputs = form.querySelectorAll(config.inputSelector);
     const inputsArray = Array.from(inputs);
     const submitButton = form.querySelector(config.submitButtonSelector);
+
+    toggleButtonValidity(config, form, submitButton);
 
     inputsArray.forEach(function (input) {
       input.addEventListener('input', function () {

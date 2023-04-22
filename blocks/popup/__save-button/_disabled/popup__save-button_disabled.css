@@ -3,6 +3,8 @@
   background-color: #FFFFFF;
   outline: 1px solid #C0C0C0;
   cursor: default;
-  /* или */
-   /* opacity: 0.2; */
+}
+
+.popup__save-button_disabled:hover {
+  opacity: 1;
 }
