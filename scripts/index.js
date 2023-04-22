@@ -174,6 +174,7 @@ function cardSubmit(event) {
   nameInputCreate.value = '';
   linkInputCreate.value = '';
   closePopup(popupAddCard);
+  createButton.classList.add('popup__save-button_disabled');
 };
 
 popupAddForm.addEventListener('submit', cardSubmit);

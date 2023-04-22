@@ -62,7 +62,7 @@ function enableValidation(config) {
       });
     });
   });
-};
+}
 
 enableValidation({
   formSelector: '.popup__form',
