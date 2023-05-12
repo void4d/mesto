@@ -1,5 +1,3 @@
-// Валидация форм
-
 // Установка валидности формы
 function setInputStateValid(config, input, errorMessage) {
   input.classList.remove(config.inputErrorClass);
@@ -72,3 +70,4 @@ enableValidation({
   inputErrorClass: 'popup__input_invalid',
 });
 
+export { setInputStateValid, setInputStateInvalid, checkInputValidity, enableButton, disableButton, toggleButtonValidity, enableValidation};
