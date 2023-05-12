@@ -1,6 +1,6 @@
 import Card from './Card.js';
 import { initialCards } from './array.js';
-import * as validation from './validate.js';
+import FormValidator from './FormValidator.js';
 
 // Профиль
 const nameProfile = document.querySelector('.profile__name');
@@ -139,3 +139,17 @@ initialCards.forEach((item) => {
   const cardElement = card.createCardElement();
   addCardElementStart(cardElement);
 });
+
+
+const enableValidation = ({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_invalid',
+});
+
+const profileValidation = new FormValidator(enableValidation, popupFormEdit);
+profileValidation.enableValidation();
+const cardValidation = new FormValidator(enableValidation, popupAddForm);
+cardValidation.enableValidation();
