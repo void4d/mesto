@@ -5,7 +5,6 @@ export default class Card {
     this._openImgPopup = popupFunctions.open;
     this._closeImgPopup = popupFunctions.close;
     this._imgPopup = document.querySelector('.popup_type_open-card');
-    this._cardsGrid = document.querySelector('.elements');
   }
 // Получение разметки
   _getTemplate = () => {
@@ -27,15 +26,8 @@ export default class Card {
 
     return this._element;
   }
-// Добавление карточки в начало
-  addCardtoStart = () => {
-    this._cardsGrid.append(this._element);
-  }
-// Добавление карточки в конец
-  addCardtoEnd = () => {
-    this._cardsGrid.prepend(this._element);
-  }
-// Удаление карточки
+
+  // Удаление карточки
   _deleteCard = () => {
     this._element.remove();
   }

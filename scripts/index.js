@@ -27,6 +27,9 @@ const createButton = popupAddCard.querySelector('.popup__save-button');
 const nameInputCreate = popupAddForm.querySelector('.popup__input_type_name');
 const linkInputCreate = popupAddForm.querySelector('.popup__input_type_link');
 
+
+const cardsGrid = document.querySelector('.elements');
+
 // Сабмит окна редактирования профиля
 popupFormEdit.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -91,6 +94,16 @@ closeButtonAddCard.addEventListener('click', function () {
   closePopup(popupAddCard);
 });
 
+// Функция добавления карточки в начало
+function addCardElementStart(cardElement) {
+  cardsGrid.append(cardElement);
+};
+
+// Функция добавления карточки в конец
+function addCardElementEnd(cardElement) {
+  cardsGrid.prepend(cardElement);
+};
+
 // Сабмит добавления карточки
 function cardSubmit(event) {
   event.preventDefault();
@@ -106,7 +119,7 @@ function cardSubmit(event) {
 
   const card = new Card(cardInfo, '.card-template', popupFunctions);
   const cardElement = card.createCardElement();
-  card.addCardtoEnd(cardElement);
+  addCardElementEnd(cardElement);
 
   nameInputCreate.value = '';
   linkInputCreate.value = '';
@@ -124,7 +137,5 @@ const popupFunctions = {
 initialCards.forEach((item) => {
   const card = new Card(item, '.card-template', popupFunctions);
   const cardElement = card.createCardElement();
-  card.addCardtoStart(cardElement);
+  addCardElementStart(cardElement);
 });
-
-
