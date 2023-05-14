@@ -47,7 +47,7 @@ cardValidation.enableValidation();
 
 function handleCardClick(name, link) {
   cardCaption.textContent = name;
-  cardCaption.alt = name;
+  cardPhoto.alt = name;
   cardPhoto.src = link;
 
   openPopup(popupOpenCard);
@@ -64,14 +64,12 @@ popupFormEdit.addEventListener("submit", function (event) {
 // Открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  popup.addEventListener("click", closePopupByClickOnOverlay);
   document.addEventListener("keydown", closePopupByEsc);
 }
 
 // Закрытие попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  popup.removeEventListener("click", closePopupByClickOnOverlay);
   document.removeEventListener("keydown", closePopupByEsc);
 }
 
@@ -93,7 +91,6 @@ function closePopupByEsc(evt) {
 }
 
 // Закрытие попапов на клик по оверлею
-function closePopupByClickOnOverlay() {
   overlaysArray.forEach(function (popupOverlay) {
     popupOverlay.addEventListener("mousedown", function (evt) {
       if (evt.target.classList.contains("popup_opened")) {
@@ -101,12 +98,11 @@ function closePopupByClickOnOverlay() {
       }
     });
   });
-}
 
 // Открытие окна добавления карточки
 addButton.addEventListener("click", function () {
   openPopup(popupAddCard);
-  cardValidation.resetValidation();
+x
 });
 
 // Функция добавления карточки в начало
@@ -157,7 +153,7 @@ function submitCard(event) {
 
   event.target.reset();
   closePopup(popupAddCard);
-  cardValidation.enableValidation();
+  cardValidation.resetValidation();
 }
 
 popupAddForm.addEventListener("submit", submitCard);
