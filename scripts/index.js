@@ -83,11 +83,9 @@ editButton.addEventListener("click", function () {
 
 // Закрытие попапов на Esc
 function closePopupByEsc(evt) {
-  overlaysArray.forEach(function (popup) {
     if (evt.key === "Escape") {
-      closePopup(popup);
+      overlaysArray.forEach(closePopup);
     }
-  });
 }
 
 // Закрытие попапов на клик по оверлею
@@ -102,7 +100,6 @@ function closePopupByEsc(evt) {
 // Открытие окна добавления карточки
 addButton.addEventListener("click", function () {
   openPopup(popupAddCard);
-x
 });
 
 // Функция добавления карточки в начало
