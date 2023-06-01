@@ -1,12 +1,11 @@
 export default class FormValidator {
   constructor(config, formElement) {
-    this._form = config.formSelector;
-    this._input = config.inputSelector;
+    this._inputSelector = config.inputSelector;
     this._submitButton = config.submitButtonSelector;
     this._inactiveButton = config.inactiveButtonClass;
     this._inputError = config.inputErrorClass;
     this._formElement = formElement;
-    this._inputs = this._formElement.querySelectorAll(this._input);
+    this._inputs = this._formElement.querySelectorAll(this._inputSelector);
     this._inputsArray = Array.from(this._inputs);
     this._submitButton = this._formElement.querySelector(this._submitButton);
   }
@@ -29,26 +28,26 @@ export default class FormValidator {
     }
   }
   // Функция включения кнопки
-  _enableButton = (submitButton) => {
-    submitButton.classList.remove(this._inactiveButton);
-    submitButton.removeAttribute("disabled", "");
+  _enableButton = () => {
+    this._submitButton.classList.remove(this._inactiveButton);
+    this._submitButton.removeAttribute("disabled", "");
   };
   // Функция отключения кнопки
-  _disableButton = (submitButton) => {
-    submitButton.classList.add(this._inactiveButton);
-    submitButton.setAttribute("disabled", "");
+  _disableButton = () => {
+    this._submitButton.classList.add(this._inactiveButton);
+    this._submitButton.setAttribute("disabled", "");
   };
   // Переключение кнопки в зависимости от правильности ввода
-  _toggleButtonValidity = (form, submitButton) => {
+  _toggleButtonValidity = (form) => {
     if (this._formElement.checkValidity()) {
-      this._enableButton(submitButton);
+      this._enableButton(this._submitButton);
     } else {
-      this._disableButton(submitButton);
+      this._disableButton(this._submitButton);
     }
   };
 
   resetValidation = () => {
-    this._toggleButtonValidity(this.formElement, this._submitButton);
+    this._toggleButtonValidity(this._formElement, this._submitButton);
 
     this._inputs.forEach((inputEl) => {
       const errorMessage = this._formElement.querySelector(

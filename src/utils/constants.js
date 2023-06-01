@@ -33,32 +33,18 @@ export const enableValidation = {
   inputErrorClass: "popup__input_invalid",
 };
 
-// Профиль
-export const nameProfile = document.querySelector(".profile__name");
-export const jobProfile = document.querySelector(".profile__description");
+// Кнопки профиля
 export const editButton = document.querySelector(".profile__edit-button");
 export const addButton = document.querySelector(".profile__add-button");
-// Окна
-export const overlays = document.querySelectorAll(".popup");
-export const overlaysArray = Array.from(overlays);
-// Окно редактирования профиля
-export const popupProfileEdit = document.querySelector(".popup_type_profile-edit");
+
+// Форма редактирования профиля
 export const popupFormEdit = document.forms["editform"];
 export const nameInputEdit = popupFormEdit.querySelector(".popup__input_type_name");
 export const jobInputEdit = popupFormEdit.querySelector(
   ".popup__input_type_description"
 );
-// Окно добавления карточки
-export const popupAddCard = document.querySelector(".popup_type_add-card");
+// Форма добавления карточки
 export const popupAddForm = document.forms["addform"];
-export const nameInputCreate = popupAddForm.querySelector(".popup__input_type_name");
-export const linkInputCreate = popupAddForm.querySelector(".popup__input_type_link");
 
-// Окно просмотра полного изображения
-export const popupOpenCard = document.querySelector(".popup_type_open-card");
-export const cardPhoto = popupOpenCard.querySelector(".popup__photo");
-export const cardCaption = popupOpenCard.querySelector(".popup__caption");
-
-export const closeButtons = document.querySelectorAll(".popup__close-button");
-
+// Контейнер карточек
 export const cardsGrid = document.querySelector(".elements");
