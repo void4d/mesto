@@ -5,17 +5,16 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
 
 <body class="page">
   <header class="header">
-    <img src="./images/logo.svg" alt="Место. Россия" class="header__logo">
+    <img src="<%=require('./images/logo.svg')%>" alt="Место. Россия" class="header__logo">
   </header>
   <main class="main">
     <section class="profile">
-      <img class="profile__avatar" src="./images/Avatar.png" alt="Аватар пользователя">
+      <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар пользователя">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__description">Исследователь океана</p>
@@ -72,21 +71,20 @@
   <div class="popup popup_type_open-card">
     <div class="popup__photo-container">
       <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-      <img src="./images/Altai.jpg" class="popup__photo" alt="">
+      <img src="" class="popup__photo" alt="">
       <p class="popup__caption"></p>
     </div>
   </div>
   <template class="card-template">
     <li class="elements__card">
       <button class="elements__delete-button" type="button" aria-label="Удалить"></button>
-      <img src="./images/Altai.jpg" class="elements__photo" alt="">
+      <img src="" class="elements__photo" alt="">
       <div class="elements__bottom-part">
         <h2 class="elements__heading"></h2>
         <button class="elements__like-button" type="button" aria-label="Понравилось"></button>
       </div>
     </li>
   </template>
-  <script type='module' src="./pages/index.js"></script>
 </body>
 
 </html>
