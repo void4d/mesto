@@ -1,13 +1,13 @@
 export default class FormValidator {
   constructor(config, formElement) {
     this._inputSelector = config.inputSelector;
-    this._submitButton = config.submitButtonSelector;
+    this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButton = config.inactiveButtonClass;
     this._inputError = config.inputErrorClass;
     this._formElement = formElement;
     this._inputs = this._formElement.querySelectorAll(this._inputSelector);
     this._inputsArray = Array.from(this._inputs);
-    this._submitButton = this._formElement.querySelector(this._submitButton);
+    this._submitButtonSelector = this._formElement.querySelector(this._submitButtonSelector);
   }
   // Установка валидности формы
   _setInputStateValid = (input, errorMessage) => {
@@ -29,25 +29,25 @@ export default class FormValidator {
   }
   // Функция включения кнопки
   _enableButton = () => {
-    this._submitButton.classList.remove(this._inactiveButton);
-    this._submitButton.removeAttribute("disabled", "");
+    this._submitButtonSelector.classList.remove(this._inactiveButton);
+    this._submitButtonSelector.removeAttribute("disabled", "");
   };
   // Функция отключения кнопки
   _disableButton = () => {
-    this._submitButton.classList.add(this._inactiveButton);
-    this._submitButton.setAttribute("disabled", "");
+    this._submitButtonSelector.classList.add(this._inactiveButton);
+    this._submitButtonSelector.setAttribute("disabled", "");
   };
   // Переключение кнопки в зависимости от правильности ввода
-  _toggleButtonValidity = (form) => {
+  _toggleButtonValidity = () => {
     if (this._formElement.checkValidity()) {
-      this._enableButton(this._submitButton);
+      this._enableButton();
     } else {
-      this._disableButton(this._submitButton);
+      this._disableButton();
     }
   };
 
   resetValidation = () => {
-    this._toggleButtonValidity(this._formElement, this._submitButton);
+    this._toggleButtonValidity();
 
     this._inputs.forEach((inputEl) => {
       const errorMessage = this._formElement.querySelector(
@@ -58,7 +58,7 @@ export default class FormValidator {
   };
   // Функция валидации форм
   enableValidation = () => {
-    this._toggleButtonValidity(this._formElement, this._submitButton);
+    this._toggleButtonValidity(this._formElement, this._submitButtonSelector);
 
     this._inputsArray.forEach((input) => {
       input.addEventListener("input", () => {
@@ -66,7 +66,7 @@ export default class FormValidator {
           `#${input.id}-error`
         );
         this._checkInputValidity(input, errorMessage);
-        this._toggleButtonValidity(this._formElement, this._submitButton);
+        this._toggleButtonValidity(this._formElement, this._submitButtonSelector);
       });
     });
   };
