@@ -41,7 +41,7 @@ const cardsContainer = new Section(
   '.elements',
 );
 
-cardsContainer.render(initialCards);
+// cardsContainer.render(initialCards);
 
 const profileValidation = new FormValidator(enableValidation, popupFormEdit);
 const cardValidation = new FormValidator(enableValidation, popupAddForm);
@@ -98,4 +98,8 @@ const api = new Api({
     authorization: '8156abe8-8242-4bae-8403-684c2d885ae6'
   },
 });
+
+api.getInitialCards().then((cards) => {
+  cardsContainer.render(cards);
+}).catch((err) => console.log(err))
 

@@ -5,7 +5,7 @@ export default class Api {
     this._authorization = config.headers.authorization;
   }
 
-  getCards() {
+  getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: {
         authorization: this._authorization,
