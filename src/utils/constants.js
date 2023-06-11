@@ -41,7 +41,7 @@ export const addButton = document.querySelector(".profile__add-button");
 export const popupFormEdit = document.forms["editform"];
 export const nameInputEdit = popupFormEdit.querySelector(".popup__input_type_name");
 export const jobInputEdit = popupFormEdit.querySelector(
-  ".popup__input_type_description"
+  ".popup__input_type_about"
 );
 // Форма добавления карточки
 export const popupAddForm = document.forms["addform"];

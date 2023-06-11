@@ -15,8 +15,8 @@
       <section class="profile">
         <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар пользователя" />
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__description">Исследователь океана</p>
+          <h1 class="profile__name"></h1>
+          <p class="profile__about"></p>
           <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
@@ -39,8 +39,8 @@
             <span id="username-error" class="popup__error-message"></span>
           </div>
           <div class="popup__input-container">
-            <input id="description" class="popup__input popup__input_type_description" name="description" placeholder="Описание" required minlength="2" maxlength="200" novalidate />
-            <span id="description-error" class="popup__error-message"></span>
+            <input id="about" class="popup__input popup__input_type_about" name="about" placeholder="Описание" required minlength="2" maxlength="200" novalidate />
+            <span id="about-error" class="popup__error-message"></span>
           </div>
           <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
