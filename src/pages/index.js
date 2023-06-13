@@ -40,6 +40,13 @@ const cardsContainer = new Section(
   '.elements',
 );
 
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-68',
+  headers: {
+    authorization: '8156abe8-8242-4bae-8403-684c2d885ae6',
+  },
+});
+
 const profileValidation = new FormValidator(enableValidation, popupFormEdit);
 const cardValidation = new FormValidator(enableValidation, popupAddForm);
 
@@ -56,7 +63,7 @@ function submitProfile(data) {
 
   const { name, about } = data;
 
-  apiUserInfo.setUserServerInfo(name, about);
+  api.setUserInfoApi(name, about);
   popupWithEditForm.close();
 }
 
@@ -77,9 +84,42 @@ addButton.addEventListener('click', function () {
   cardValidation.resetValidation();
 });
 
+function handleDelete(cardId, card) {
+  api.deleteCardApi(cardId, card).then(() => card.remove());
+}
+
+function handleDeleteIcon(cardId, button, userId) {
+  if (cardId !== userId) {
+    button.remove();
+  }
+}
+
+function likeCard(cardId) {
+  api.putLikeApi(cardId).then((data) => {
+    this._likesCounter.textContent = data.likes.length;
+    this._likeButton.classList.add('elements__like-button_active');
+  });
+}
+
+function unlikeCard(cardId) {
+  api.deleteLikeApi(cardId).then((data) => {
+    this._likesCounter.textContent = data.likes.length;
+    this._likeButton.classList.remove('elements__like-button_active');
+  });
+}
+
 // Создание карточки
 function createCard(item) {
-  const card = new Card(item, '.card-template', handleCardClick);
+  const card = new Card(
+    item,
+    '.card-template',
+    handleCardClick,
+    { handleDelete },
+    { handleDeleteIcon },
+    { likeCard },
+    { unlikeCard },
+    userInfo,
+  );
   const cardElement = card.createCardElement();
 
   return cardElement;
@@ -87,44 +127,28 @@ function createCard(item) {
 
 // Сабмит добавления карточки
 function submitCard(data) {
-  // cardsContainer.addItem(createCard(data));
-
   const { name, link } = data;
 
-  cardsContainer.addItem(apiPostCards.postCard(name, link));
+  api.postCardApi(name, link).then((res) => {
+    cardsContainer.addItem(createCard(res));
+  });
 
   popupWithAddForm.close();
   cardValidation.resetValidation();
 }
 
-const apiPostCards = new Api({
-  headers: {
-    authorization: '8156abe8-8242-4bae-8403-684c2d885ae6',
-  },
-});
-
-const apiGetCards = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-68',
-  headers: {
-    authorization: '8156abe8-8242-4bae-8403-684c2d885ae6',
-  },
-});
-
 // GET Карточек
-apiGetCards
-  .getInitialCards()
-  .then((cards) => {
-    cardsContainer.render(cards);
+api
+  .getInitialCardsApi()
+  .then((cardsData) => {
+    cardsContainer.render(cardsData);
   })
   .catch((err) => console.log(err));
 
-const apiUserInfo = new Api({
-  id: 'me',
-  headers: {
-    authorization: '8156abe8-8242-4bae-8403-684c2d885ae6',
-  },
-});
-
-apiUserInfo.getUserServerInfo().then(res => {
-  userInfo.setUserInfo(res);
-})
+// GET Информации о пользователе
+api
+  .getUserInfoApi()
+  .then((info) => {
+    userInfo.setUserInfo(info);
+  })
+  .catch((err) => console.log(err));

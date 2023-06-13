@@ -6,47 +6,49 @@ export default class Api {
     this._id = config.id;
   }
 
-  getInitialCards() {
+  _handleResponse(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+  }
+
+  getInitialCardsApi() {
     return fetch(`${this._url}/cards`, {
       headers: {
         authorization: this._authorization,
         'Content-type': 'application/json',
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    });
+    }).then(this._handleResponse);
   }
 
-  postCard(name, link) {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-68/cards', {
-      method: 'POST',
-      headers: {
-        authorization: this._authorization,
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: name,
-        link: link,
-      }),
-    });
+  postCardApi(name, link) {
+   return fetch(`${this._url}/cards`, {
+     method: 'POST',
+     headers: {
+       authorization: this._authorization,
+       'Content-type': 'application/json',
+     },
+     body: JSON.stringify({
+       name: name,
+       link: link,
+     }),
+   }).then(this._handleResponse);
   }
 
-  getUserServerInfo() {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-68/users/${this._id}`, {
+  getUserInfoApi() {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
         authorization: this._authorization,
         'Content-type': 'application/json',
       },
-    }).then((res) => res.json());
+    }).then(this._handleResponse);
   }
 
-  setUserServerInfo(name, about) {
-    fetch(`https://nomoreparties.co/v1/cohort-68/users/${this._id}`, {
+  setUserInfoApi(name, about) {
+    return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._authorization,
@@ -56,6 +58,40 @@ export default class Api {
         name: name,
         about: about,
       }),
-    });
+    }).then(this._handleResponse);
   }
+
+  putLikeApi(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+    }).then(this._handleResponse);
+  }
+
+  deleteLikeApi(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+    }).then(this._handleResponse);
+  }
+
+  deleteCardApi(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+    }).then(this._handleResponse);
+  }
+
+  // changeAvatar() {
+  //   fetch(``)
+  // }
 }
