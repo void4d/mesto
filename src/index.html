@@ -1,109 +1,120 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Место</title>
-  </head>
 
-  <body class="page">
-    <header class="header">
-      <img src="<%=require('./images/logo.svg')%>" alt="Место. Россия" class="header__logo" />
-    </header>
-    <main class="main">
-      <section class="profile">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Место</title>
+</head>
+
+<body class="page">
+  <header class="header">
+    <img src="<%=require('./images/logo.svg')%>" alt="Место. Россия" class="header__logo" />
+  </header>
+  <main class="main">
+    <section class="profile">
+      <div class="profile__avatar-container">
         <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар пользователя" />
-        <div class="profile__info">
-          <h1 class="profile__name"></h1>
-          <p class="profile__about"></p>
-          <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
-        </div>
-        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
-      </section>
-      <section>
-        <ul class="elements"></ul>
-      </section>
-    </main>
-    <footer class="footer">
-      <p class="footer__copyright">&COPY; 2023 Mesto Russia</p>
-    </footer>
+        <button class="profile__avatar-edit-icon" type="button" aria-label="Редактировать"></button>
+      </div>
+      <div class="profile__info">
+        <h1 class="profile__name"></h1>
+        <p class="profile__about"></p>
+        <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
+      </div>
+      <button class="profile__add-button" type="button" aria-label="Добавить"></button>
+    </section>
+    <section>
+      <ul class="elements"></ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&COPY; 2023 Mesto Russia</p>
+  </footer>
 
-    <div class="popup popup_type_profile-edit">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <form id="editform" class="popup__form" name="profile-name">
-          <h2 class="popup__heading">Редактировать профиль</h2>
-          <div class="popup__input-container">
-            <input id="username" class="popup__input popup__input_type_name" name="name" placeholder="Имя" required minlength="2" maxlength="40" novalidate />
-            <span id="username-error" class="popup__error-message"></span>
-          </div>
-          <div class="popup__input-container">
-            <input id="about" class="popup__input popup__input_type_about" name="about" placeholder="Описание" required minlength="2" maxlength="200" novalidate />
-            <span id="about-error" class="popup__error-message"></span>
-          </div>
-          <button class="popup__save-button" type="submit">Сохранить</button>
-        </form>
-      </div>
-    </div>
-    <div class="popup popup_type_add-card">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <form id="addform" class="popup__form" name="profile-name">
-          <h2 class="popup__heading">Новое место</h2>
-          <div class="popup__input-container">
-            <input id="cardname" class="popup__input popup__input_type_name" name="name" placeholder="Название" required minlength="2" maxlength="30" novalidate />
-            <span id="cardname-error" class="popup__error-message"></span>
-          </div>
-          <div class="popup__input-container">
-            <input id="link" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку" required type="url" novalidate />
-            <span id="link-error" class="popup__error-message"></span>
-          </div>
-          <button class="popup__save-button" type="submit">Создать</button>
-        </form>
-      </div>
-    </div>
-    <div class="popup popup_type_open-card">
-      <div class="popup__photo-container">
-        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <img class="popup__photo" alt="" />
-        <p class="popup__caption"></p>
-      </div>
-    </div>
-    <div class="popup popup_type_confirm-deletion">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <form id="confirm-deletion" class="popup__form" name="confirm-deletion">
-          <h2 class="popup__heading">Вы уверены?</h2>
-          <button class="popup__save-button" type="submit">Да</button>
-        </form>
-      </div>
-    </div>
-     <div class="popup popup_type_change-avatar popup_opened">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <form id="change-avatar" class="popup__form" name="change-avatar">
-          <h2 class="popup__heading">Обновить аватар</h2>
-          <div class="popup__input-container">
-            <input id="link" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку" required type="url" novalidate />
-            <span id="link-error" class="popup__error-message"></span>
-          </div>
-          <button class="popup__save-button" type="submit">Сохранить</button>
-        </form>
-      </div>
-    </div>
-    <template class="card-template">
-      <li class="elements__card">
-        <button class="elements__delete-button" type="button" aria-label="Удалить"></button>
-        <img class="elements__photo" alt="" />
-        <div class="elements__bottom-part">
-          <h2 class="elements__heading"></h2>
-          <div class="elements__like-block">
-            <button class="elements__like-button" type="button" aria-label="Понравилось"></button>
-            <p class="elements__like-counter"></p></div>
+  <div class="popup popup_type_profile-edit">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      <form id="editform" class="popup__form" name="profile-name">
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <div class="popup__input-container">
+          <input id="username" class="popup__input popup__input_type_name" name="name" placeholder="Имя" required
+            minlength="2" maxlength="40" novalidate />
+          <span id="username-error" class="popup__error-message"></span>
         </div>
-      </li>
-    </template>
-  </body>
-  </body>
+        <div class="popup__input-container">
+          <input id="about" class="popup__input popup__input_type_about" name="about" placeholder="Описание" required
+            minlength="2" maxlength="200" novalidate />
+          <span id="about-error" class="popup__error-message"></span>
+        </div>
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_add-card">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      <form id="addform" class="popup__form" name="profile-name">
+        <h2 class="popup__heading">Новое место</h2>
+        <div class="popup__input-container">
+          <input id="cardname" class="popup__input popup__input_type_name" name="name" placeholder="Название" required
+            minlength="2" maxlength="30" novalidate />
+          <span id="cardname-error" class="popup__error-message"></span>
+        </div>
+        <div class="popup__input-container">
+          <input id="link" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку"
+            required type="url" novalidate />
+          <span id="link-error" class="popup__error-message"></span>
+        </div>
+        <button class="popup__save-button" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_open-card">
+    <div class="popup__photo-container">
+      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      <img class="popup__photo" alt="" />
+      <p class="popup__caption"></p>
+    </div>
+  </div>
+  <div class="popup popup_type_confirm-deletion">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      <form id="confirm-deletion" class="popup__form" name="confirm-deletion">
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <button class="popup__save-button" type="submit">Да</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_change-avatar">
+    <div class="popup__container">
+      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      <form id="change-avatar" class="popup__form" name="change-avatar">
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <div class="popup__input-container">
+          <input id="link" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку"
+            required type="url" novalidate />
+          <span id="link-error" class="popup__error-message"></span>
+        </div>
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <template class="card-template">
+    <li class="elements__card">
+      <button class="elements__delete-button" type="button" aria-label="Удалить"></button>
+      <img class="elements__photo" alt="" />
+      <div class="elements__bottom-part">
+        <h2 class="elements__heading"></h2>
+        <div class="elements__like-block">
+          <button class="elements__like-button" type="button" aria-label="Понравилось"></button>
+          <p class="elements__like-counter"></p>
+        </div>
+      </div>
+    </li>
+  </template>
+</body>
+</body>
+
 </html>
