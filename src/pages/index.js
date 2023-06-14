@@ -17,6 +17,7 @@ import {
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -24,12 +25,15 @@ const popupWithEditForm = new PopupWithForm('.popup_type_profile-edit', submitPr
 const popupWithAddForm = new PopupWithForm('.popup_type_add-card', submitCard);
 const popupWithImage = new PopupWithImage('.popup_type_open-card');
 const popupEditAvatar = new PopupWithForm('.popup_type_change-avatar', submitAvatar);
-// ПОПАП ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ
+const popupWithConfirmation = new PopupWithConfirmation(
+  '.popup_type_confirm-deletion',
+  handleDelete,
+);
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 popupWithImage.setEventListeners();
 popupEditAvatar.setEventListeners();
-// СЛУШАТЕЛИ ПОПАПА ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ
+popupWithConfirmation.setEventListeners();
 
 const userInfo = new UserInfo({
   userNameElement: '.profile__name',
@@ -108,13 +112,21 @@ avatarEditButton.addEventListener('click', function () {
 });
 
 function handleDelete(cardId, card) {
-  api.deleteCardApi(cardId, card).then(() => card.remove());
+  api.deleteCardApi(cardId, card).then(() => {
+    card.remove();
+    popupWithConfirmation.close();
+  });
 }
 
 function handleDeleteIcon(cardId, button, userId) {
   if (cardId !== userId) {
     button.remove();
   }
+}
+
+function handleConfirmationPopup(element) {
+  popupWithConfirmation.open();
+  popupWithConfirmation.confirm(element);
 }
 
 function likeCard(cardId) {
@@ -141,6 +153,7 @@ function createCard(item) {
     { handleDeleteIcon },
     { likeCard },
     { unlikeCard },
+    handleConfirmationPopup,
     userInfo,
   );
   const cardElement = card.createCardElement();

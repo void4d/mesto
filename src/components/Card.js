@@ -7,6 +7,7 @@ export default class Card {
     { handleDeleteIcon },
     { likeCard },
     { unlikeCard },
+    handleConfirmationPopup,
     userInfo,
   ) {
     this._cardInfo = cardInfo;
@@ -15,6 +16,7 @@ export default class Card {
 
     this._handleDelete = handleDelete;
     this._handleDeleteIcon = handleDeleteIcon;
+    this._handleConfirmationPopup = handleConfirmationPopup;
 
     this._putLike = likeCard;
     this._deleteLike = unlikeCard;
@@ -82,7 +84,7 @@ export default class Card {
   // Установка слушателей
   _setEventListeners = () => {
     this._deleteButton.addEventListener('click', () => {
-      this._deleteCard();
+      this._handleConfirmationPopup(this);
     });
     this._likeButton.addEventListener('click', () => {
       this._likeCard();
