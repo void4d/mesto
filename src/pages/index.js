@@ -13,6 +13,10 @@ import {
   cardsGrid,
   avatarEditButton,
   popupAvatarForm,
+  popupConfirmDeletionForm,
+  deletionFormButton,
+  editFormButton,
+  addFormButton
 } from '../utils/constants.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -74,8 +78,10 @@ function submitProfile(data) {
   userInfo.setUserInfo(data);
 
   const { name, about } = data;
-
-  api.setUserInfoApi(name, about);
+  editFormButton.textContent = 'Сохранение...';
+  api.setUserInfoApi(name, about).catch(err => {
+    editFormButton.textContent = 'Ошибка соединения';
+  })
   popupWithEditForm.close();
 }
 
@@ -92,6 +98,8 @@ function submitAvatar(avatar) {
 editButton.addEventListener('click', function () {
   popupWithEditForm.open();
 
+  editFormButton.textContent = 'Сохранить';
+
   const { name, about } = userInfo.getUserInfo();
 
   nameInputEdit.value = name;
@@ -101,6 +109,7 @@ editButton.addEventListener('click', function () {
 
 // Открытие окна добавления карточки
 addButton.addEventListener('click', function () {
+  addFormButton.textContent = 'Создать';
   popupWithAddForm.open();
   cardValidation.resetValidation();
 });
@@ -112,10 +121,16 @@ avatarEditButton.addEventListener('click', function () {
 });
 
 function handleDelete(cardId, card) {
-  api.deleteCardApi(cardId, card).then(() => {
-    card.remove();
-    popupWithConfirmation.close();
-  });
+  deletionFormButton.textContent = 'Удаление...';
+  api
+    .deleteCardApi(cardId, card)
+    .then(() => {
+      card.remove();
+      popupWithConfirmation.close();
+    })
+    .catch((err) => {
+      deletionFormButton.textContent = 'Ошибка соединения';
+    });
 }
 
 function handleDeleteIcon(cardId, button, userId) {
@@ -125,7 +140,9 @@ function handleDeleteIcon(cardId, button, userId) {
 }
 
 function handleConfirmationPopup(element) {
+  deletionFormButton.textContent = 'Да';
   popupWithConfirmation.open();
+
   popupWithConfirmation.confirm(element);
 }
 
@@ -165,9 +182,12 @@ function createCard(item) {
 function submitCard(data) {
   const { name, link } = data;
 
+  addFormButton.textContent = 'Добавление...';
   api.postCardApi(name, link).then((res) => {
     cardsContainer.addItem(createCard(res));
-  });
+  }).catch(err => {
+    addFormButton.textContent = 'Ошибка соединения';
+  })
 
   popupWithAddForm.close();
   cardValidation.resetValidation();
