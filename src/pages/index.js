@@ -11,6 +11,8 @@ import {
   jobInputEdit,
   popupAddForm,
   cardsGrid,
+  avatarEditButton,
+  popupAvatarForm,
 } from '../utils/constants.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -21,13 +23,18 @@ import Api from '../components/Api.js';
 const popupWithEditForm = new PopupWithForm('.popup_type_profile-edit', submitProfile);
 const popupWithAddForm = new PopupWithForm('.popup_type_add-card', submitCard);
 const popupWithImage = new PopupWithImage('.popup_type_open-card');
+const popupEditAvatar = new PopupWithForm('.popup_type_change-avatar', submitAvatar);
+// ПОПАП ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 popupWithImage.setEventListeners();
+popupEditAvatar.setEventListeners();
+// СЛУШАТЕЛИ ПОПАПА ПОДТВЕРЖДЕНИЯ УДАЛЕНИЯ
 
 const userInfo = new UserInfo({
   userNameElement: '.profile__name',
   aboutElement: '.profile__about',
+  avatarElement: '.profile__avatar',
 });
 
 const cardsContainer = new Section(
@@ -49,9 +56,10 @@ const api = new Api({
 
 const profileValidation = new FormValidator(enableValidation, popupFormEdit);
 const cardValidation = new FormValidator(enableValidation, popupAddForm);
-
+const profileAvatarValidation = new FormValidator(enableValidation, popupAvatarForm);
 profileValidation.enableValidation();
 cardValidation.enableValidation();
+profileAvatarValidation.enableValidation();
 
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
@@ -65,6 +73,15 @@ function submitProfile(data) {
 
   api.setUserInfoApi(name, about);
   popupWithEditForm.close();
+}
+
+// Сабмит окна редактирования аватарки
+function submitAvatar(avatar) {
+  api.changeAvatar(avatar.link).then((res) => {
+    userInfo.setUserAvatar(res);
+  });
+
+  popupEditAvatar.close();
 }
 
 // Открытие окна редактирования профиля
@@ -81,6 +98,12 @@ editButton.addEventListener('click', function () {
 // Открытие окна добавления карточки
 addButton.addEventListener('click', function () {
   popupWithAddForm.open();
+  cardValidation.resetValidation();
+});
+
+// Открытие окна редактирования аватарки
+avatarEditButton.addEventListener('click', function () {
+  popupEditAvatar.open();
   cardValidation.resetValidation();
 });
 
@@ -150,5 +173,6 @@ api
   .getUserInfoApi()
   .then((info) => {
     userInfo.setUserInfo(info);
+    userInfo.setUserAvatar(info);
   })
   .catch((err) => console.log(err));

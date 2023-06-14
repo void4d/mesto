@@ -7,11 +7,11 @@ export default class Api {
   }
 
   _handleResponse(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
   }
 
   getInitialCardsApi() {
@@ -24,17 +24,17 @@ export default class Api {
   }
 
   postCardApi(name, link) {
-   return fetch(`${this._url}/cards`, {
-     method: 'POST',
-     headers: {
-       authorization: this._authorization,
-       'Content-type': 'application/json',
-     },
-     body: JSON.stringify({
-       name: name,
-       link: link,
-     }),
-   }).then(this._handleResponse);
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    }).then(this._handleResponse);
   }
 
   getUserInfoApi() {
@@ -91,7 +91,16 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  // changeAvatar() {
-  //   fetch(``)
-  // }
+  changeAvatar(avatarLink) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    }).then(this._handleResponse);
+  }
 }

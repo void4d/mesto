@@ -12,7 +12,7 @@ export default class FormValidator {
   // Установка валидности формы
   _setInputStateValid = (input, errorMessage) => {
     input.classList.remove(this._inputError);
-    errorMessage.textContent = "";
+    errorMessage.textContent = '';
   };
   // Установка невалидности формы
   _setInputStateInvalid = (input, errorMessage) => {
@@ -30,12 +30,12 @@ export default class FormValidator {
   // Функция включения кнопки
   _enableButton = () => {
     this._submitButton.classList.remove(this._inactiveButton);
-    this._submitButton.removeAttribute("disabled", "");
+    this._submitButton.removeAttribute('disabled', '');
   };
   // Функция отключения кнопки
   _disableButton = () => {
     this._submitButton.classList.add(this._inactiveButton);
-    this._submitButton.setAttribute("disabled", "");
+    this._submitButton.setAttribute('disabled', '');
   };
   // Переключение кнопки в зависимости от правильности ввода
   _toggleButtonValidity = () => {
@@ -50,9 +50,7 @@ export default class FormValidator {
     this._toggleButtonValidity();
 
     this._inputs.forEach((inputEl) => {
-      const errorMessage = this._formElement.querySelector(
-        `#${inputEl.id}-error`
-      );
+      const errorMessage = this._formElement.querySelector(`#${inputEl.id}-error`);
       this._setInputStateValid(inputEl, errorMessage);
     });
   };
@@ -61,10 +59,8 @@ export default class FormValidator {
     this._toggleButtonValidity();
 
     this._inputsArray.forEach((input) => {
-      input.addEventListener("input", () => {
-        const errorMessage = this._formElement.querySelector(
-          `#${input.id}-error`
-        );
+      input.addEventListener('input', () => {
+        const errorMessage = this._formElement.querySelector(`#${input.id}-error`);
         this._checkInputValidity(input, errorMessage);
         this._toggleButtonValidity();
       });
