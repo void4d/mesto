@@ -13,10 +13,9 @@ import {
   cardsGrid,
   avatarEditButton,
   popupAvatarForm,
-  popupConfirmDeletionForm,
   deletionFormButton,
   editFormButton,
-  addFormButton
+  addFormButton,
 } from '../utils/constants.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -29,10 +28,7 @@ const popupWithEditForm = new PopupWithForm('.popup_type_profile-edit', submitPr
 const popupWithAddForm = new PopupWithForm('.popup_type_add-card', submitCard);
 const popupWithImage = new PopupWithImage('.popup_type_open-card');
 const popupEditAvatar = new PopupWithForm('.popup_type_change-avatar', submitAvatar);
-const popupWithConfirmation = new PopupWithConfirmation(
-  '.popup_type_confirm-deletion',
-  handleDelete,
-);
+const popupWithConfirmation = new PopupWithConfirmation('.popup_type_confirm-deletion');
 popupWithEditForm.setEventListeners();
 popupWithAddForm.setEventListeners();
 popupWithImage.setEventListeners();
@@ -73,33 +69,43 @@ function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
+function renderLoading(button, string) {
+  button.textContent = string;
+}
+
 // Сабмит окна редактирования профиля
 function submitProfile(data) {
-  userInfo.setUserInfo(data);
-
   const { name, about } = data;
-  editFormButton.textContent = 'Сохранение...';
-  api.setUserInfoApi(name, about).catch(err => {
-    editFormButton.textContent = 'Ошибка соединения';
-  })
-  popupWithEditForm.close();
+  renderLoading(editFormButton, 'Сохранение...');
+  api
+    .setUserInfoApi(name, about)
+    .then((res) => {
+      popupWithEditForm.close();
+      userInfo.setUserInfo(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(editFormButton, 'Сохранить');
+    });
 }
 
 // Сабмит окна редактирования аватарки
 function submitAvatar(avatar) {
-  api.changeAvatar(avatar.link).then((res) => {
-    userInfo.setUserAvatar(res);
-  });
-
-  popupEditAvatar.close();
+  api
+    .changeAvatar(avatar.link)
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+      popupEditAvatar.close();
+      profileAvatarValidation.resetValidation();
+    })
+    .catch((err) => console.log(err));
 }
 
 // Открытие окна редактирования профиля
 editButton.addEventListener('click', function () {
   popupWithEditForm.open();
-
-  editFormButton.textContent = 'Сохранить';
-
   const { name, about } = userInfo.getUserInfo();
 
   nameInputEdit.value = name;
@@ -109,7 +115,6 @@ editButton.addEventListener('click', function () {
 
 // Открытие окна добавления карточки
 addButton.addEventListener('click', function () {
-  addFormButton.textContent = 'Создать';
   popupWithAddForm.open();
   cardValidation.resetValidation();
 });
@@ -120,17 +125,23 @@ avatarEditButton.addEventListener('click', function () {
   cardValidation.resetValidation();
 });
 
-function handleDelete(cardId, card) {
-  deletionFormButton.textContent = 'Удаление...';
-  api
-    .deleteCardApi(cardId, card)
-    .then(() => {
-      card.remove();
-      popupWithConfirmation.close();
-    })
-    .catch((err) => {
-      deletionFormButton.textContent = 'Ошибка соединения';
-    });
+function submitDeletion(cardId, card) {
+
+  popupWithConfirmation.open(() => {
+    renderLoading(deletionFormButton, 'Удаление...');
+    api
+      .deleteCardApi(cardId, card)
+      .then(() => {
+        card.remove();
+        popupWithConfirmation.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        renderLoading(deletionFormButton, 'Да');
+      });
+  });
 }
 
 function handleDeleteIcon(cardId, button, userId) {
@@ -139,25 +150,26 @@ function handleDeleteIcon(cardId, button, userId) {
   }
 }
 
-function handleConfirmationPopup(element) {
-  deletionFormButton.textContent = 'Да';
-  popupWithConfirmation.open();
-
-  popupWithConfirmation.confirm(element);
+function putLike(cardId) {
+  api
+    .putLikeApi(cardId)
+    .then((data) => {
+      console.log('лайк');
+      this._likesCounter.textContent = data.likes.length;
+      this._likeButton.classList.add('elements__like-button_active');
+    })
+    .catch((err) => console.log(err));
 }
 
-function likeCard(cardId) {
-  api.putLikeApi(cardId).then((data) => {
-    this._likesCounter.textContent = data.likes.length;
-    this._likeButton.classList.add('elements__like-button_active');
-  });
-}
-
-function unlikeCard(cardId) {
-  api.deleteLikeApi(cardId).then((data) => {
-    this._likesCounter.textContent = data.likes.length;
-    this._likeButton.classList.remove('elements__like-button_active');
-  });
+function deleteLike(cardId) {
+  api
+    .deleteLikeApi(cardId)
+    .then((data) => {
+      console.log('лайк снят');
+      this._likesCounter.textContent = data.likes.length;
+      this._likeButton.classList.remove('elements__like-button_active');
+    })
+    .catch((err) => console.log(err));
 }
 
 // Создание карточки
@@ -166,11 +178,10 @@ function createCard(item) {
     item,
     '.card-template',
     handleCardClick,
-    { handleDelete },
     { handleDeleteIcon },
-    { likeCard },
-    { unlikeCard },
-    handleConfirmationPopup,
+    { putLike },
+    { deleteLike },
+    submitDeletion,
     userInfo,
   );
   const cardElement = card.createCardElement();
@@ -181,31 +192,27 @@ function createCard(item) {
 // Сабмит добавления карточки
 function submitCard(data) {
   const { name, link } = data;
+  renderLoading(addFormButton, 'Добавление...');
+  api
+    .postCardApi(name, link)
+    .then((res) => {
+      cardsContainer.addItem(createCard(res));
+      popupWithAddForm.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(addFormButton, 'Создать');
+    });
 
-  addFormButton.textContent = 'Добавление...';
-  api.postCardApi(name, link).then((res) => {
-    cardsContainer.addItem(createCard(res));
-  }).catch(err => {
-    addFormButton.textContent = 'Ошибка соединения';
-  })
-
-  popupWithAddForm.close();
   cardValidation.resetValidation();
 }
 
-// GET Карточек
-api
-  .getInitialCardsApi()
-  .then((cardsData) => {
-    cardsContainer.render(cardsData);
-  })
-  .catch((err) => console.log(err));
-
-// GET Информации о пользователе
-api
-  .getUserInfoApi()
-  .then((info) => {
-    userInfo.setUserInfo(info);
-    userInfo.setUserAvatar(info);
+Promise.all([api.getUserInfoApi(), api.getInitialCardsApi()])
+  .then(([profile, cards]) => {
+    userInfo.setUserInfo(profile);
+    userInfo.setUserAvatar(profile);
+    cardsContainer.render(cards);
   })
   .catch((err) => console.log(err));

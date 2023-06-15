@@ -3,7 +3,6 @@ export default class Api {
     this._url = config.url;
     this._headers = config.headers;
     this._authorization = config.headers.authorization;
-    this._id = config.id;
   }
 
   _handleResponse(res) {
